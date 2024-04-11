@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Curso vue</title>
+</head>
+<body
+class="bg-gray-100 h-screen flex items-center justify-center"
+>
+    <div id="app">
+        <!-- interpolacion -->
+        <div class="bg-white p-8 rounded-lg shadow-lg w-96" >
+            <h4><u> Interpolacion </u></h4>
+            <p>{{ mensaje }}</p>
+        </div>
+
+        <button
+        @click="mostrarAlerta"
+        class="bg-blue-200 p-2 rounded-lg mt-2"
+        >
+            Mostrar mensaje
+        </button>
+       
+    </div>
+    <script src="js/main.js"></script>
+</body>
+</html>

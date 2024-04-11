@@ -1,0 +1,34 @@
+[
+    {
+        "nombre": "Sofia",
+        "apellido": "Contreras",
+        "edad": 45,
+        "ocupacion": "Desarrollador web",
+        "lenguajes": ["Vue", "React", "TypeScript"],
+        "avatar": "https://avatar.iran.liara.run/public/69"
+    },
+    {
+        "nombre": "Juan",
+        "apellido": "Perez",
+        "edad": 32,
+        "ocupacion": "Ingeniero de software",
+        "lenguajes": ["JavaScript", "Python", "Java"],
+        "avatar": "https://avatar.iran.liara.run/public/22"
+    },
+    {
+        "nombre": "Maria",
+        "apellido": "Gonzalez",
+        "edad": 28,
+        "ocupacion": "Diseñadora UI/UX",
+        "lenguajes": ["HTML", "CSS", "JavaScript"],
+        "avatar": "https://avatar.iran.liara.run/public/60"
+    },
+    {
+        "nombre": "Carlos",
+        "apellido": "Lopez",
+        "edad": 50,
+        "ocupacion": "Analista de datos",
+        "lenguajes": ["SQL", "Python", "R"],
+        "avatar": "https://avatar.iran.liara.run/public/9"
+    }
+]
