@@ -61,7 +61,9 @@
     </UsuarioList> -->
 
     <!-- <CustomDirectivas/> -->
-    <Navbar/>
+    <Navbar
+    v-if="route.name !== 'Login'"
+    />
     <router-view class="p-2"/>
 </template>
 
@@ -80,6 +82,10 @@ import UsuarioList from './components/Slots/UsuarioList.vue'
 import usuarios from './assets/usuarios.json'
 import Usuario from './components/Slots/Usuario.vue'
 import CustomDirectivas from './components/CustomDirectivas.vue'
+import { useRoute } from 'vue-router'
+import { onMounted } from 'vue'
+
+const route = useRoute()
 
 const eliminarUsuario = (data) => {
   console.log(data)

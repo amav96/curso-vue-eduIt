@@ -7,6 +7,26 @@ import Directivas from './views/Directivas.vue'
 import Interpolacion from './views/Interpolacion.vue'
 import VModel from './views/VModel.vue'
 import Eventos from './views/Eventos.vue'
+import Login from './views/Autenticacion/Login.vue'
+import Usuarios from './views/Usuarios/Usuarios.vue'
+
+let usuario = { permiso: 'entrar_home'};
+
+const guard = (to, from, next) => {
+    if(to.meta.requireAuth && !usuario){
+        next("VModel")
+    } else if(usuario) {
+        if(to.meta.gate){
+            if(usuario.permiso === to.meta.gate){
+                console.log("tiene permiso")
+                next()
+            } else {
+                next("Bind")
+            }
+        }
+        
+    }
+}
 
 const router = createRouter({
     history: createWebHistory(),
@@ -19,11 +39,13 @@ const router = createRouter({
             path: '/Home',
             component: Home,
             name: 'Home',
+            meta: { requireAuth: true, gate: 'entrar_home' },
+            // beforeEnter: guard
         },
         {
             path: '/Bind',
             component: Bind,
-            name: 'Bind'
+            name: 'Bind',
         },
         {
             path: '/CustomDirectivas',
@@ -53,9 +75,24 @@ const router = createRouter({
             name: 'Eventos'
         },
 
-        
-        
+        {
+            path: '/autenticacion/login',
+            component: Login,
+            name: 'Login'
+        },
+
+        {
+            path: '/usuarios',
+            component: Usuarios,
+            name: 'Usuarios'
+        },
+
     ],
 })
+
+// router.beforeEach((to, from, next) => {
+//     guard(to, from, next)
+// })
+
 
 export default router;

@@ -1,6 +1,19 @@
 <template>
   <div class="home">
-    <h1 class="mb-3" >Home</h1>
+    <h1 class="mb-3" > Home </h1>
+    <div class="flex flex-row my-2 gap-2">
+      <div 
+      @click="router.go(-1)"
+      class="bg-blue-200 p-3 text-black rounded-lg shadow" >
+      Atras
+     </div>
+     <div 
+      @click="router.replace({name: 'Home', params : { nombre: 'Sofia'}})"
+      class="bg-blue-200 p-3 text-black rounded-lg shadow" >
+      Reemplazar
+     </div>
+
+    </div>
     <div class="card-container">
       <div class="card">
         <img src="https://avatar.iran.liara.run/public/69" alt="Placeholder Image">
@@ -27,10 +40,14 @@
   </div>
 </template>
 
-  <script setup>
+<script setup>
+import { onBeforeMount, onMounted, onUpdated } from 'vue';
+import { useRoute, useRouter } from 'vue-router'
 
- 
-  </script>
+const route = useRoute();
+const router = useRouter();
+
+</script>
 
 <style scoped>
 .home {
