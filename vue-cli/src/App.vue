@@ -63,8 +63,16 @@
     <!-- <CustomDirectivas/> -->
     <Navbar
     v-if="route.name !== 'Login'"
+    @open-sidebar="openSidebar"
+    :display-sidebar="displaySidebar"
     />
-    <router-view class="p-2"/>
+    <div class="flex flex-row w-full">
+      <Sidebar
+      v-if="route.name !== 'Login'"
+      :display-sidebar="displaySidebar"
+      />
+      <router-view class="p-2"/>
+    </div>
 </template>
 
 <script setup>
@@ -83,12 +91,19 @@ import usuarios from './assets/usuarios.json'
 import Usuario from './components/Slots/Usuario.vue'
 import CustomDirectivas from './components/CustomDirectivas.vue'
 import { useRoute } from 'vue-router'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
+import Sidebar from './components/Sidebar/Sidebar.vue'
 
 const route = useRoute()
 
 const eliminarUsuario = (data) => {
   console.log(data)
+}
+
+const displaySidebar = ref(true)
+
+const openSidebar = () => {
+  displaySidebar.value = !displaySidebar.value
 }
 
 </script>

@@ -19,10 +19,27 @@
                 </button>
             </div>
         </form>
+        <div class="flex flex-flex justify-start my-4">
+            <button 
+            @click="displayCreateUser = !displayCreateUser"
+            class="text-white bg-green-400 p-2 rounded-lg shadow">
+                Crear usuario
+            </button>
+        </div>
         <ListadoUsuarios
         :usuarios="usuarios"
         @eliminar="eliminarUsuario"
+        @actualizar="irActualizarUsuario"
         />
+
+        <Modal
+        v-if="displayCreateUser"
+        >
+            <SaveUsuario
+            @agregar-usuario="agregarUsuario"
+            @close="displayCreateUser = false"
+            />
+        </Modal>
     </div>
 </template>
 
@@ -30,7 +47,11 @@
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
 import ListadoUsuarios from '../../components/Usuarios/ListadoUsuarios.vue';
+import { useRouter } from 'vue-router'
+import Modal from '../../components/Modal.vue';
+import SaveUsuario from './SaveUsuario.vue'
 
+const router = useRouter()
 
 onMounted(() => {
     getUsuarios()
@@ -77,7 +98,18 @@ const eliminarUsuario = async (data) => {
     }
 }
 
+const irActualizarUsuario = (data) => {
+    router.push({name: 'SaveUsuario', params : { usuario_id: data.usuario.id }})
+}
 
+const displayCreateUser = ref(false)
+
+const agregarUsuario = (nuevoUsuario) => {
+    usuarios.value = [
+        ...[nuevoUsuario],
+        ...usuarios.value
+    ]
+}
 
 </script>
 

@@ -10,6 +10,7 @@ import Eventos from './views/Eventos.vue'
 import Login from './views/Autenticacion/Login.vue'
 import Usuarios from './views/Usuarios/Usuarios.vue'
 
+
 let usuario = { permiso: 'entrar_home'};
 
 const guard = (to, from, next) => {
@@ -83,8 +84,14 @@ const router = createRouter({
 
         {
             path: '/usuarios',
-            component: Usuarios,
+            component: () => import('./views/Usuarios/Usuarios.vue') ,
             name: 'Usuarios'
+        },
+
+        {
+            path: '/usuario/:usuario_id',
+            component: () => import('./views/Usuarios/SaveUsuario.vue') ,
+            name: 'SaveUsuario'
         },
 
     ],

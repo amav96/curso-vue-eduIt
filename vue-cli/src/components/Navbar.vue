@@ -1,11 +1,19 @@
 <template>
     <nav class="bg-gray-800">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
-        <div class="relative flex h-28 items-center justify-between">
+        <div class="relative flex h-14 items-center justify-between">
             <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div class="sm:ml-6 ">
                     <div class="flex flex-row flex-wrap gap-2">
-                            <div
+                        <div 
+                        @click="manejarSidebar"
+                        class="cursor-pointer text-black text-center  bg-white p-2 rounded-lg w-20">
+                           {{ displaySidebar ? 'Cerrar' : 'Abrir' }}
+                        </div>
+                        <!-- <div class="text-white">
+                            Alvaro 
+                        </div> -->
+                            <!-- <div
                             @click="navegar('Home')"
                             class="cursor-pointer bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                             >
@@ -59,7 +67,7 @@
                             class="cursor-pointer bg-red-900 text-white rounded-md px-3 py-2 text-sm font-medium"
                             >
                             Salir
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -69,12 +77,26 @@
 </template>
 
 <script setup>
+import { toRefs } from 'vue';
 import { useRouter } from 'vue-router'
+
+const emit = defineEmits(["open-sidebar"])
 
 const router = useRouter();
 
+const props = defineProps({
+    displaySidebar: Boolean
+})
+
+const { displaySidebar } = toRefs(props);
+
 const navegar = (nombreRuta) => {
     router.push({name: nombreRuta})
+}
+
+const manejarSidebar = () => {
+    console.log("sidbar")
+    emit("open-sidebar")
 }
 
 </script>

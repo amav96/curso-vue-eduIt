@@ -1,5 +1,5 @@
 <template>
-    <div style="overflow-x: auto;max-width: 520px;">
+    <div style="overflow-x: auto;max-width: 100%;">
         <table  class="table-auto">
         <thead>
             <tr>
@@ -19,11 +19,16 @@
             :key=index
             class="border"
             >
-                <td>
+                <td class="flex flex-row justify-center items-center gap-2">
                     <button 
-                    @click="eliminarUsuario(usuario, index)"
+                    @click="deleteUser(usuario, index)"
                     class="p-2 bg-red-400 text-white rounded-lg shadow w-20" >
                         Eliminar
+                    </button>
+                    <button 
+                    @click="updateUser(usuario, index)"
+                    class="p-2 bg-blue-400 text-white rounded-lg shadow w-20" >
+                        Editar
                     </button>
                 </td>
                 <td>
@@ -54,7 +59,7 @@
 
 <script setup>
 import { toRefs } from 'vue';
-const emit =  defineEmits(["eliminar"])
+const emit =  defineEmits(["eliminar", "actualizar"])
 
 const props = defineProps({
     usuarios: Array
@@ -62,8 +67,12 @@ const props = defineProps({
 
 const { usuarios } = toRefs(props)
 
-const eliminarUsuario = (usuario, index) => {
+const deleteUser = (usuario, index) => {
     emit("eliminar", { usuario, index})
+}
+
+const updateUser = (usuario, index) => {
+    emit("actualizar", { usuario, index})
 }
 
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div style="height: 60vh;">
+    <div style="height: 60vh;flex:1;">
         
         <form 
         @submit.prevent="iniciarSesion"
@@ -51,8 +51,8 @@ import { useRouter } from 'vue-router'
 const router = useRouter();
 
 const formulario = ref({
-    email: 'Rodrigo95@gmail.com',
-    password: 'yICGdn31sPL7vts'
+    email: 'Eryn9@gmail.com',
+    password: 'L53upHQq75JhKwh'
 })
 
 const sesionIniciadaCorrectamente = ref(false)
