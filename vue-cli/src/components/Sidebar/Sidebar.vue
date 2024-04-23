@@ -13,6 +13,7 @@
                     <Item
                     :title="m.title"
                     :route-name="m.routeName"
+                    :params="m.params ?? null"
                     />
                 </li>
             </ul>
@@ -21,51 +22,78 @@
 </template>
 
 <script setup>
-import { ref, toRefs } from 'vue';
+import { onMounted, ref, toRefs } from 'vue';
 import Item from './Item.vue';
+import { useUsuario } from '../../composables/Usuario';
 
 const props = defineProps({
     displaySidebar: Boolean
 })
 
+const {
+    usuario
+} = useUsuario()
+
+const usuarioAutenticado = ref(null)
+onMounted(() => {
+    usuarioAutenticado.value = usuario()
+    if(usuarioAutenticado.value){
+        menu.value = menu.value.map((m) => {
+            if(m.routeName === 'Mi-perfil'){
+                return {
+                    ...m,
+                    params: {
+                        usuario_id: usuarioAutenticado.value.id
+                    }
+                }
+            } 
+            return m
+        })
+
+        menu.value.push({
+            title: 'Salir',
+            routeName: 'Logout'
+        })
+    }
+    
+})
+
 const { displaySidebar } = toRefs(props);
 
-
 const menu = ref([
-    {
-        title: 'Home',
-        routeName: 'Home'
-    },
-    {
-        title: 'Usuarios',
-        routeName: 'Usuarios'
-    },
-    {
-        title: 'Bind',
-        routeName: 'Bind'
-    },
-    {
-        title: 'Interpolacion',
-        routeName: 'Interpolacion'
-    },
-    {
-        title: 'Directivas',
-        routeName: 'Directivas'
-    },
-    {
-        title: 'Eventos',
-        routeName: 'Eventos'
-    },
-    {
-        title: 'VModel',
-        routeName: 'Home'
-    },
-    {
-        title: 'Login',
-        routeName: 'Login'
-    },
+        {
+            title: 'Home',
+            routeName: 'Home'
+        },
+        {
+            title: 'Usuarios',
+            routeName: 'Usuarios'
+        },
+        {
+            title: 'Bind',
+            routeName: 'Bind'
+        },
+        {
+            title: 'Interpolacion',
+            routeName: 'Interpolacion'
+        },
+        {
+            title: 'Directivas',
+            routeName: 'Directivas'
+        },
+        {
+            title: 'Eventos',
+            routeName: 'Eventos'
+        },
+        {
+            title: 'VModel',
+            routeName: 'Home'
+        },
+        {
+            title: 'Mi Perfil',
+            routeName: 'Mi-perfil',
+        },
 ])
-
 
 </script>
 

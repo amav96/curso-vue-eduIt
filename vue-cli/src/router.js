@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter } from 'vue-router'
+import { createWebHistory, createRouter, routerKey } from 'vue-router'
 
 import Home from './views/Home.vue'
 import Bind from './views/Bind.vue'
@@ -8,24 +8,20 @@ import Interpolacion from './views/Interpolacion.vue'
 import VModel from './views/VModel.vue'
 import Eventos from './views/Eventos.vue'
 import Login from './views/Autenticacion/Login.vue'
-import Usuarios from './views/Usuarios/Usuarios.vue'
+import { useUsuario } from './composables/Usuario'
 
-
-let usuario = { permiso: 'entrar_home'};
+const {
+    usuario
+} = useUsuario()
 
 const guard = (to, from, next) => {
-    if(to.meta.requireAuth && !usuario){
-        next("VModel")
-    } else if(usuario) {
-        if(to.meta.gate){
-            if(usuario.permiso === to.meta.gate){
-                console.log("tiene permiso")
-                next()
-            } else {
-                next("Bind")
-            }
-        }
-        
+
+    const usuarioActual = usuario();
+    
+    if(to.meta.requireAuth && !usuarioActual){
+        router.push({name: 'Logout'})
+    } else {
+        next();
     }
 }
 
@@ -77,13 +73,10 @@ const router = createRouter({
         },
 
         {
-            path: '/autenticacion/login',
-            component: Login,
-            name: 'Login'
-        },
-
-        {
             path: '/usuarios',
+            meta: {
+                requireAuth: true,
+            },
             component: () => import('./views/Usuarios/Usuarios.vue') ,
             name: 'Usuarios'
         },
@@ -94,12 +87,30 @@ const router = createRouter({
             name: 'SaveUsuario'
         },
 
+        {
+            path: '/usuario/:usuario_id/perfil',
+            component: () => import('./views/Usuarios/Perfil.vue') ,
+            name: 'Mi-perfil'
+        },
+
+        {
+            path: '/autenticacion/login',
+            component: Login,
+            name: 'Login'
+        },
+
+        {
+            path: '/autenticacion/logout',
+            component: () => import('./views/Autenticacion/Logout.vue') ,
+            name: 'Logout'
+        },
+
     ],
 })
 
-// router.beforeEach((to, from, next) => {
-//     guard(to, from, next)
-// })
+router.beforeEach((to, from, next) => {
+    guard(to, from, next)
+})
 
 
 export default router;

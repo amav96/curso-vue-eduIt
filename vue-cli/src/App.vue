@@ -62,13 +62,13 @@
 
     <!-- <CustomDirectivas/> -->
     <Navbar
-    v-if="route.name !== 'Login'"
+    v-if="route.name !== 'Login' && usuario()"
     @open-sidebar="openSidebar"
     :display-sidebar="displaySidebar"
     />
     <div class="flex flex-row w-full">
       <Sidebar
-      v-if="route.name !== 'Login'"
+      v-if="route.name !== 'Login' && usuario()"
       :display-sidebar="displaySidebar"
       />
       <router-view class="p-2"/>
@@ -93,6 +93,12 @@ import CustomDirectivas from './components/CustomDirectivas.vue'
 import { useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import Sidebar from './components/Sidebar/Sidebar.vue'
+import { useUsuario } from './composables/Usuario'
+
+
+const { 
+  usuario
+} = useUsuario()
 
 const route = useRoute()
 

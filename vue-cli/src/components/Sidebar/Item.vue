@@ -10,20 +10,21 @@
 </template>
 
 <script setup>
-import { toRefs } from 'vue';
+import { onMounted, toRefs } from 'vue';
 import { useRouter } from 'vue-router'
 
 const router = useRouter();
 
 const props = defineProps({
     title: String,
-    routeName: String
+    routeName: String,
+    params: Object,
 })
 
-const { title, routeName } = toRefs(props)
+const { title, routeName, params } = toRefs(props)
 
 const navegar = () => {
-    router.push({ name: routeName.value })
+    router.push({ name: routeName.value, params: params.value })
 }
 
 </script>

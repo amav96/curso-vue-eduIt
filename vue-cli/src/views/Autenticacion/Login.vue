@@ -47,13 +47,19 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router'
+import { useUsuario } from '../../composables/Usuario'
 
 const router = useRouter();
 
 const formulario = ref({
-    email: 'Eryn9@gmail.com',
-    password: 'L53upHQq75JhKwh'
+    email: 'Arianna.Kassulke42@hotmail.com',
+    password: 'eJUAznXL77iGbGl'
 })
+
+const { 
+    setUsuario,
+    getUsuario
+} = useUsuario();
 
 const sesionIniciadaCorrectamente = ref(false)
 const iniciandoSesion = ref(false)
@@ -61,14 +67,15 @@ const iniciarSesion = async () => {
 
     try {
         iniciandoSesion.value = true
-        const url = "https://661d915898427bbbef0225b3.mockapi.io/api/v1/users"
-        const response = await axios.get(url,{ params: { 
+        const response = await getUsuario({
             email : formulario.value.email,
             password: formulario.value.password
-        }});
+        })
+       
         if(response.data.length > 0){
             sesionIniciadaCorrectamente.value = true
-
+            const [ usuarioServer ] = response.data
+            setUsuario(usuarioServer)
             setTimeout(() => {
                 router.push({name: 'Home'})
             }, 2000);

@@ -11,13 +11,13 @@
                 v-model="filtros.email"
                 />
             </div>
-            <div>
+            <!-- <div>
                 <button 
                 type="submit"
                 class="p-2 bg-blue-400 text-white rounded-lg shadow w-48" >
                     {{ cargandoUsuarios ? 'Cargando' : 'Filtrar' }} 
                 </button>
-            </div>
+            </div> -->
         </form>
         <div class="flex flex-flex justify-start my-4">
             <button 
@@ -27,7 +27,7 @@
             </button>
         </div>
         <ListadoUsuarios
-        :usuarios="usuarios"
+        :usuarios="usuariosCalculados"
         @eliminar="eliminarUsuario"
         @actualizar="irActualizarUsuario"
         />
@@ -45,7 +45,7 @@
 
 <script setup>
 import axios from 'axios';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch, reactive, computed } from 'vue';
 import ListadoUsuarios from '../../components/Usuarios/ListadoUsuarios.vue';
 import { useRouter } from 'vue-router'
 import Modal from '../../components/Modal.vue';
@@ -57,19 +57,40 @@ onMounted(() => {
     getUsuarios()
 })
 
-const filtros = ref({
+const filtros = reactive({
     email : ''
 })
+
+watch(filtros, (newValue) => {
+    getUsuarios()
+}, { deep: true } )
+
+const usuariosCalculados = computed(() => {
+    return usuarios.value.map((u) => {
+        if(u.id < 15){
+            return {
+            ...u,
+            name: 'App ' + u.name
+            }
+        } else {
+            return u
+        }
+        
+    })
+})
+
 
 const cargandoUsuarios = ref(false)
 const usuarios = ref([])
 const url = "https://661d915898427bbbef0225b3.mockapi.io/api/v1/users"
 const getUsuarios = async () => {
+
+    if(cargandoUsuarios.value) return;
     try {
         cargandoUsuarios.value = true
         const params = {}
-        if(filtros.value.email){
-            params.email = filtros.value.email
+        if(filtros.email){
+            params.email = filtros.email
         }
         const response = await axios.get(url,{
             params
