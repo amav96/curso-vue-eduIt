@@ -52,8 +52,8 @@ import { useUsuario } from '../../composables/Usuario'
 const router = useRouter();
 
 const formulario = ref({
-    email: 'Arianna.Kassulke42@hotmail.com',
-    password: 'eJUAznXL77iGbGl'
+    email: 'Madonna.Goodwin23@gmail.com',
+    password: 'FDyK083PJznRysS'
 })
 
 const { 
