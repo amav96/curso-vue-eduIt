@@ -8,7 +8,8 @@
                         <div 
                         @click="manejarSidebar"
                         class="cursor-pointer text-black text-center  bg-white p-2 rounded-lg w-20">
-                           {{ displaySidebar ? 'Cerrar' : 'Abrir' }}
+                          
+                           <i :class="nameIcon" aria-hidden="true"></i>
                         </div>
                         <!-- <div class="text-white">
                             Alvaro 
@@ -77,7 +78,7 @@
 </template>
 
 <script setup>
-import { toRefs } from 'vue';
+import { computed, toRefs } from 'vue';
 import { useRouter } from 'vue-router'
 
 const emit = defineEmits(["open-sidebar"])
@@ -87,6 +88,8 @@ const router = useRouter();
 const props = defineProps({
     displaySidebar: Boolean
 })
+
+const nameIcon = computed(() =>  displaySidebar.value ? 'fa fa-times' : 'fa fa-bars' )
 
 const { displaySidebar } = toRefs(props);
 

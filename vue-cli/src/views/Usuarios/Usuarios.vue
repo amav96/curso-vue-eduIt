@@ -79,7 +79,6 @@ const usuariosCalculados = computed(() => {
     })
 })
 
-
 const cargandoUsuarios = ref(false)
 const usuarios = ref([])
 const url = "https://661d915898427bbbef0225b3.mockapi.io/api/v1/users"

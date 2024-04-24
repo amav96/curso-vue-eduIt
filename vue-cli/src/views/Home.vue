@@ -22,20 +22,7 @@
           <p>Framework javascript</p>
         </div>
       </div>
-      <div class="card">
-        <img src="https://avatar.iran.liara.run/public/22" alt="Placeholder Image">
-        <div class="card-content">
-          <h2>Vue Router</h2>
-          <p>Navegacion SPA.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://avatar.iran.liara.run/public/60" alt="Placeholder Image">
-        <div class="card-content">
-          <h2>Vuex / Pinia</h2>
-          <p>Estado global</p>
-        </div>
-      </div>
+      
     </div>
   </div>
 </template>

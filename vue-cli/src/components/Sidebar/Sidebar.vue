@@ -14,6 +14,7 @@
                     :title="m.title"
                     :route-name="m.routeName"
                     :params="m.params ?? null"
+                    :icon="m.icon"
                     />
                 </li>
             </ul>
@@ -52,7 +53,8 @@ onMounted(() => {
 
         menu.value.push({
             title: 'Salir',
-            routeName: 'Logout'
+            routeName: 'Logout',
+            icon: 'fa fa-times-circle'
         })
     }
     
@@ -63,35 +65,43 @@ const { displaySidebar } = toRefs(props);
 const menu = ref([
         {
             title: 'Home',
-            routeName: 'Home'
+            routeName: 'Home',
+            icon: 'fa fa-home'
         },
         {
             title: 'Usuarios',
-            routeName: 'Usuarios'
+            routeName: 'Usuarios',
+            icon: 'fa fa-user'
         },
         {
             title: 'Bind',
-            routeName: 'Bind'
+            routeName: 'Bind',
+            icon : 'fa fa-book'
         },
         {
             title: 'Interpolacion',
-            routeName: 'Interpolacion'
+            routeName: 'Interpolacion',
+            icon : 'fa fa-book'
         },
         {
             title: 'Directivas',
-            routeName: 'Directivas'
+            routeName: 'Directivas',
+            icon : 'fa fa-book'
         },
         {
             title: 'Eventos',
-            routeName: 'Eventos'
+            routeName: 'Eventos',
+            icon : 'fa fa-book'
         },
         {
             title: 'VModel',
-            routeName: 'Home'
+            routeName: 'Home',
+            icon : 'fa fa-book'
         },
         {
             title: 'Mi Perfil',
             routeName: 'Mi-perfil',
+            icon: 'fa fa-user-circle'
         },
 ])
 
