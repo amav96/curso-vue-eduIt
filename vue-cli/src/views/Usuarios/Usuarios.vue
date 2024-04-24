@@ -22,8 +22,8 @@
         <div class="flex flex-flex justify-start my-4">
             <button 
             @click="displayCreateUser = !displayCreateUser"
-            class="text-white bg-green-400 p-2 rounded-lg shadow">
-                Crear usuario
+            class="text-white bg-green-400 p-2 rounded-lg shadow w-12">
+            <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
         </div>
         <ListadoUsuarios
