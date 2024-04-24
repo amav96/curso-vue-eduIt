@@ -7,7 +7,6 @@
                 <th class="px-4 py-2 text-emerald-600">Id</th>
                 <th class="px-4 py-2 text-emerald-600">Nombre</th>
                 <th class="px-4 py-2 text-emerald-600">Email</th>
-                <th class="px-4 py-2 text-emerald-600">Password</th>
                 <th class="px-4 py-2 text-emerald-600">Avatar</th>
                 <th class="px-4 py-2 text-emerald-600">Fecha</th>
             </tr>
@@ -22,13 +21,13 @@
                 <td class="flex flex-row justify-center items-center gap-2">
                     <button 
                     @click="deleteUser(usuario, index)"
-                    class="p-2 bg-red-400 text-white rounded-lg shadow w-20" >
-                        Eliminar
+                    class="p-2 bg-red-400 text-white rounded-lg shadow w-10" >
+                        <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                     <button 
                     @click="updateUser(usuario, index)"
-                    class="p-2 bg-blue-400 text-white rounded-lg shadow w-20" >
-                        Editar
+                    class="p-2 bg-blue-400 text-white rounded-lg shadow w-10" >
+                        <i class="fa fa-wrench" aria-hidden="true"></i>
                     </button>
                 </td>
                 <td>
@@ -39,9 +38,6 @@
                 </td>
                 <td>
                     {{ usuario.email }}
-                </td>
-                <td>
-                    {{ usuario.password }}
                 </td>
                 <td>
                     <img 
