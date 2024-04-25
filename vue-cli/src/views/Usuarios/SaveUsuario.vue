@@ -134,7 +134,8 @@ const formulario = ref({
     email: '',
     name: '',
     password: '',
-    avatar: ''
+    avatar: '',
+    estado: 'inactivo'
 })
 
 const getUsuario = async () => {
@@ -213,11 +214,12 @@ const crearUsuario =  async () => {
 }
 
 const manejarSalir = () => {
-    if(editando.value){
-        router.push({name: 'Usuarios'})
-    } else {
-        emit("close")
-    }
+    emit("close")
+    // if(editando.value){
+    //     router.push({name: 'Usuarios'})
+    // } else {
+    //     emit("close")
+    // }
 }
 
 defineExpose({

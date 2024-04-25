@@ -208,7 +208,6 @@ const cambiarColor = () => {
     listadoUsuarioRef.value.tableColor = 'bg-green-200' 
 }
 
-
 </script>
 
 <style lang="scss" scoped>

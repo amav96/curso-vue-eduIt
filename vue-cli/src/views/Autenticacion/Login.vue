@@ -5,12 +5,7 @@
         @submit.prevent="iniciarSesion"
         class="h-full flex flex-col shadow-lg rounded-lg justify-center items-center gap-4">
         
-            <div v-if="sesionIniciadaCorrectamente"  class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md" role="alert">
-                <div class="flex">
-                    <p class="font-bold">Has iniciado sesión correctamente</p>
-                </div>
-            </div>    
-        
+          
             <div class="text-xl text-bold">
                 Iniciar sesión
             </div>
@@ -36,6 +31,13 @@
                     {{ iniciandoSesion ? 'Cargando' : 'Entrar' }} 
                 </button>
             </div>
+
+            <div v-if="sesionIniciadaCorrectamente"  class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md w-48" role="alert">
+                <div class="flex">
+                    <p class="font-bold">Has iniciado sesión correctamente</p>
+                </div>
+            </div>    
+        
 
 
             
@@ -73,13 +75,19 @@ const iniciarSesion = async () => {
         })
        
         if(response.data.length > 0){
-            sesionIniciadaCorrectamente.value = true
+            
             const [ usuarioServer ] = response.data
-            setUsuario(usuarioServer)
-            setTimeout(() => {
-                router.push({name: 'Home'})
-            }, 2000);
-         
+            if(usuarioServer.estado !== 'activo'){
+                alert("Usuario Inactivo")
+            } else {
+
+                sesionIniciadaCorrectamente.value = true
+                setUsuario(usuarioServer)
+                setTimeout(() => {
+                    router.push({name: 'Home'})
+                }, 2000);
+            }
+          
         }
     } catch (error) {
         console.log(error)
