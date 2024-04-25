@@ -25,12 +25,18 @@
             class="text-white bg-green-400 p-2 rounded-lg shadow w-12">
             <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
+            <button 
+            @click="cambiarColor"
+            class="text-white bg-gray-400 p-2 rounded-lg shadow mx-2">
+            Cambiar color
+            </button>
         </div>
         <ListadoUsuarios
         :usuarios="usuariosCalculados"
         @eliminar="eliminarUsuario"
-        @actualizar="irActualizarUsuario"
+        @actualizar="abrirActualizarUsuario"
         @actualizar-estado="actualizarEstado"
+        ref="listadoUsuarioRef"
         />
 
         <Modal
@@ -39,6 +45,7 @@
             <SaveUsuario
             @agregar-usuario="agregarUsuario"
             @close="displayCreateUser = false"
+            
             />
         </Modal>
     </div>
@@ -86,7 +93,6 @@ const usuariosCalculados = computed(() => {
                 puedeEliminar: true,
                 botonEliminarColor: 'bg-red-400',
                 estadoClase: 'dark:bg-red-900 dark:text-red-300 bg-red-100 text-red-800 '
-
             }
     })
 })
@@ -134,6 +140,11 @@ const irActualizarUsuario = (data) => {
     router.push({name: 'SaveUsuario', params : { usuario_id: data.usuario.id }})
 }
 
+const abrirActualizarUsuario = (data) => {
+    displayCreateUser.value = true
+
+}
+
 const displayCreateUser = ref(false)
 
 const agregarUsuario = (nuevoUsuario) => {
@@ -172,6 +183,12 @@ const actualizarEstado = async (data) => {
     }
 
 }
+
+const listadoUsuarioRef = ref(null)
+const cambiarColor = () => {
+    listadoUsuarioRef.value.tableColor = 'bg-green-200' 
+}
+
 
 </script>
 

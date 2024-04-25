@@ -1,7 +1,8 @@
 <template>
     <div style="overflow-x: auto;max-width: 100%;">
-        <table  class="table-auto">
-        <thead>
+        <table  :class="['table-auto ', tableColor]">
+        <thead
+        >
             <tr>
                 <th class="px-4 py-2 text-emerald-600">Acciones</th>
                
@@ -43,7 +44,7 @@
                         ]" >
                         {{ usuario.estadoAccion }}
                     </button>
-                   
+
                 </td>
                 
                 <td>
@@ -69,7 +70,6 @@
                         {{ usuario.estado }}
                         </span>
                     </span>
-                
                 </td>
                 <td>
                     {{ usuario.createdAt.substr(0,10) }}
@@ -82,7 +82,7 @@
 </template>
 
 <script setup>
-import { toRefs } from 'vue';
+import { ref, toRefs } from 'vue';
 const emit =  defineEmits(["eliminar", "actualizar", "actualizar-estado"])
 
 const props = defineProps({
@@ -103,6 +103,17 @@ const updateUser = (usuario, index) => {
 const updateState = (usuario, index) => {
     emit("actualizar-estado", { usuario, index})
 }
+
+const tableColor = ref('bg-gray-200')
+
+const logicaCompleja = () => {
+    alert("Aplicando logica compla")
+}
+
+defineExpose({
+    logicaCompleja,
+    tableColor
+})
 
 </script>
 
