@@ -110,17 +110,17 @@ import { useRoute, useRouter } from 'vue-router'
 const route = useRoute();
 const router = useRouter();
 
-const emit = defineEmits(["close","agregar-usuario"])
+const emit = defineEmits(["close","agregar-usuario" ,"actualizar-usuario"])
 
 onMounted(() => {
-    if(editando()){
+    console.log('MONTADOOOOO!!!')
+    if(route.params?.usuario_id){
+        editando.value = true;
         getUsuario()
     }
 })
 
-const editando = () => {
-    return !!route.params?.usuario_id
-}
+const editando = ref(false)
 
 onBeforeUpdate(() => {
     console.log("onBeforeUpdate")
@@ -174,6 +174,7 @@ const actualizarUsuario = async () => {
         guardadoCorrectamente.value = true;
         setTimeout(() => {
             guardadoCorrectamente.value = false;
+            emit("actualizar-usuario", response.data)
         }, 3000);
     } catch (error) {
         console.log(error)
@@ -183,7 +184,7 @@ const actualizarUsuario = async () => {
 }
 
 const manejarGuardado = () => {
-    if(editando()){
+    if(editando.value){
         actualizarUsuario()
     } else {
         crearUsuario()
@@ -212,12 +213,18 @@ const crearUsuario =  async () => {
 }
 
 const manejarSalir = () => {
-    if(editando()){
+    if(editando.value){
         router.push({name: 'Usuarios'})
     } else {
         emit("close")
     }
 }
+
+defineExpose({
+    formulario,
+    usuario,
+    editando
+})
 
 </script>
 

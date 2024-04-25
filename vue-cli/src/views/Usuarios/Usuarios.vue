@@ -21,7 +21,7 @@
         </form>
         <div class="flex flex-flex justify-start my-4">
             <button 
-            @click="displayCreateUser = !displayCreateUser"
+            @click="displaySaveUser = !displaySaveUser"
             class="text-white bg-green-400 p-2 rounded-lg shadow w-12">
             <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
@@ -40,12 +40,13 @@
         />
 
         <Modal
-        v-if="displayCreateUser"
+        v-if="displaySaveUser"
         >
             <SaveUsuario
             @agregar-usuario="agregarUsuario"
-            @close="displayCreateUser = false"
-            
+            @actualizar-usuario="actualizarUsuario"
+            @close="displaySaveUser = false"
+            ref="saveUsuarioRef"
             />
         </Modal>
     </div>
@@ -53,7 +54,7 @@
 
 <script setup>
 import axios from 'axios';
-import { onMounted, ref, watch, reactive, computed } from 'vue';
+import { onMounted, ref, watch, reactive, computed, nextTick } from 'vue';
 import ListadoUsuarios from '../../components/Usuarios/ListadoUsuarios.vue';
 import { useRouter } from 'vue-router'
 import Modal from '../../components/Modal.vue';
@@ -140,12 +141,30 @@ const irActualizarUsuario = (data) => {
     router.push({name: 'SaveUsuario', params : { usuario_id: data.usuario.id }})
 }
 
-const abrirActualizarUsuario = (data) => {
-    displayCreateUser.value = true
-
+const saveUsuarioRef = ref(null)
+const abrirActualizarUsuario = async(data) => {
+    displaySaveUser.value = true
+    await nextTick()
+    const { email, name, avatar, password } = data.usuario
+    saveUsuarioRef.value.formulario.email = email 
+    saveUsuarioRef.value.formulario.name = name 
+    saveUsuarioRef.value.formulario.avatar = avatar 
+    saveUsuarioRef.value.formulario.password = password 
+    saveUsuarioRef.value.usuario = data.usuario
+    saveUsuarioRef.value.editando = true
 }
 
-const displayCreateUser = ref(false)
+const actualizarUsuario = (usuarioData) => {
+    usuarios.value = usuarios.value.map((u) => {
+        if(u.id === usuarioData.id){
+            return usuarioData
+        } 
+        return u
+    })
+    displaySaveUser.value = false;
+}
+
+const displaySaveUser = ref(false)
 
 const agregarUsuario = (nuevoUsuario) => {
     usuarios.value = [
