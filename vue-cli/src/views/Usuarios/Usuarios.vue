@@ -30,6 +30,7 @@
         :usuarios="usuariosCalculados"
         @eliminar="eliminarUsuario"
         @actualizar="irActualizarUsuario"
+        @actualizar-estado="actualizarEstado"
         />
 
         <Modal
@@ -66,16 +67,27 @@ watch(filtros, (newValue) => {
 }, { deep: true } )
 
 const usuariosCalculados = computed(() => {
+    
     return usuarios.value.map((u) => {
-        if(u.id < 15){
+        if(u.estado === 'activo'){
             return {
-            ...u,
-            name: 'App ' + u.name
+                ...u,
+                estadoAccion: 'Desactivar',
+                colorEstado: 'bg-red-400',
+                puedeElimnar: false,
+                botonEliminarColor: 'bg-gray-300',
+                estadoClase: 'dark:bg-green-900 dark:text-green-300 bg-green-100 text-green-800 '
             }
-        } else {
-            return u
-        }
-        
+        } 
+        return {
+                ...u,
+                estadoAccion: 'Activar',
+                colorEstado: 'bg-green-400',
+                puedeEliminar: true,
+                botonEliminarColor: 'bg-red-400',
+                estadoClase: 'dark:bg-red-900 dark:text-red-300 bg-red-100 text-red-800 '
+
+            }
     })
 })
 
@@ -129,6 +141,36 @@ const agregarUsuario = (nuevoUsuario) => {
         ...[nuevoUsuario],
         ...usuarios.value
     ]
+}
+
+const activandoUsuarios = ref(false)
+const actualizarEstado = async (data) => {
+
+    if(activandoUsuarios.value) return
+
+    const {usuario, index} = data;
+    try {
+        activandoUsuarios.value = true;
+        const response = await axios.put(
+            `${url}/${usuario.id}`,
+            {
+                estado: usuario.estado !== 'activo' ? 'activo' : 'inactivo'
+            }
+        )
+        usuarios.value = usuarios.value.map((u) => {
+            if(u.id === usuario.id){
+                return response.data
+            } 
+
+            return u
+        })
+        
+    } catch (error) {
+        console.log(error)
+    } finally {
+        activandoUsuarios.value = false;
+    }
+
 }
 
 </script>
