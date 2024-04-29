@@ -89,18 +89,18 @@ const props = defineProps({
     usuarios: Array
 })
 
-onBeforeMount(() => {
-    console.log("antes de montar")
-    console.log(JSON.parse(JSON.stringify(usuarios.value)))
-})
+// onBeforeMount(() => {
+//     console.log("antes de montar")
+//     console.log(JSON.parse(JSON.stringify(usuarios.value)))
+// })
 
-onMounted(() => {
-    console.log("montado")
-})
+// onMounted(() => {
+//     console.log("montado")
+// })
 
-onBeforeUnmount(() => {
-    console.log("antes de irme")
-})
+// onBeforeUnmount(() => {
+//     console.log("antes de irme")
+// })
 
 const { usuarios } = toRefs(props)
 

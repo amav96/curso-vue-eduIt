@@ -32,7 +32,6 @@
             </button>
         </div>
         <ListadoUsuarios
-       
         :usuarios="usuariosCalculados"
         @eliminar="eliminarUsuario"
         @actualizar="abrirActualizarUsuario"
@@ -55,13 +54,23 @@
 
 <script setup>
 import axios from 'axios';
-import { onMounted, ref, watch, reactive, computed, nextTick } from 'vue';
+import { onMounted, ref, watch, reactive, computed, nextTick, onBeforeMount } from 'vue';
 import ListadoUsuarios from '../../components/Usuarios/ListadoUsuarios.vue';
 import { useRouter } from 'vue-router'
 import Modal from '../../components/Modal.vue';
 import SaveUsuario from './SaveUsuario.vue'
 
 const router = useRouter()
+
+// onBeforeMount(() => {
+//     console.log("before")
+//     console.log(listadoUsuarioRef.value)
+// })
+
+// onMounted(() => {
+//     console.log("se monto")
+//     console.log(listadoUsuarioRef.value)
+// })
 
 onMounted(() => {
     getUsuarios()

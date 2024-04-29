@@ -5,6 +5,14 @@
     
     >
         <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+            <div v-if="usuario" class="font-bold text-lg flex flex-row gap-4">
+                <div>
+                    {{usuario.name}}
+                </div>
+                <div class="max-w-10">
+                    <img :src="usuario.avatar" />
+                </div>
+            </div>
             <ul class="space-y-2 font-medium">
                 <li
                 v-for="(m, index) in menu"
@@ -26,18 +34,17 @@
 import { onMounted, ref, toRefs } from 'vue';
 import Item from './Item.vue';
 import { useUsuario } from '../../composables/Usuario';
+import { useUsuarioStore } from '../../stores/usuario'
+import { storeToRefs } from 'pinia';
 
-const props = defineProps({
-    displaySidebar: Boolean
-})
+const usuarioStore = useUsuarioStore()
+const { displaySidebar, usuario } = storeToRefs(usuarioStore)
 
-const {
-    usuario
-} = useUsuario()
+
 
 const usuarioAutenticado = ref(null)
 onMounted(() => {
-    usuarioAutenticado.value = usuario()
+    usuarioAutenticado.value = usuario.value
     if(usuarioAutenticado.value){
         menu.value = menu.value.map((m) => {
             if(m.routeName === 'Mi-perfil'){
@@ -59,8 +66,6 @@ onMounted(() => {
     }
     
 })
-
-const { displaySidebar } = toRefs(props);
 
 const menu = ref([
         {

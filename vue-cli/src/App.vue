@@ -62,14 +62,11 @@
 
     <!-- <CustomDirectivas/> -->
     <Navbar
-    v-if="route.name !== 'Login' && usuario()"
-    @open-sidebar="openSidebar"
-    :display-sidebar="displaySidebar"
+    v-if="route.name !== 'Login' && usuario"
     />
     <div class="flex flex-row w-full">
       <Sidebar
-      v-if="route.name !== 'Login' && usuario()"
-      :display-sidebar="displaySidebar"
+      v-if="route.name !== 'Login' && usuario"
       />
       <router-view class="p-2"/>
     </div>
@@ -95,10 +92,12 @@ import { onMounted, ref } from 'vue'
 import Sidebar from './components/Sidebar/Sidebar.vue'
 import { useUsuario } from './composables/Usuario'
 
+import { useUsuarioStore } from './stores/usuario'
+import { storeToRefs } from 'pinia'
+const usuarioStore = useUsuarioStore()
+const { usuario } =  storeToRefs(usuarioStore)
 
-const { 
-  usuario
-} = useUsuario()
+
 
 const route = useRoute()
 

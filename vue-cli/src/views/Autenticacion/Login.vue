@@ -50,16 +50,20 @@ import { ref } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router'
 import { useUsuario } from '../../composables/Usuario'
+import { useUsuarioStore } from '../../stores/usuario'
+
+const usuarioStore = useUsuarioStore()
+const { setUsuario } = usuarioStore
 
 const router = useRouter();
 
 const formulario = ref({
-    email: 'Madonna.Goodwin23@gmail.com',
-    password: 'FDyK083PJznRysS'
+    email: 'Peter_Lueilwitz@hotmail.com',
+    password: 'YbAU8ojwwPim2KZ'
 })
 
 const { 
-    setUsuario,
+    // setUsuario,
     getUsuario
 } = useUsuario();
 

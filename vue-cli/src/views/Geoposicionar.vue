@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onBeforeMount, onBeforeUnmount, onMounted } from 'vue';
 
 
 let id;
@@ -34,6 +34,15 @@ options = {
 
 onMounted(() => {
     id = navigator.geolocation.watchPosition(success, error, options);
+})
+
+onBeforeUnmount(() => {
+    if(id){
+        console.log(id)
+        navigator.geolocation.clearWatch(id);
+        console.log("paramos la observacion")
+    }
+
 })
 
 </script>

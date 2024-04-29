@@ -8,15 +8,18 @@ import Interpolacion from './views/Interpolacion.vue'
 import VModel from './views/VModel.vue'
 import Eventos from './views/Eventos.vue'
 import Login from './views/Autenticacion/Login.vue'
-import { useUsuario } from './composables/Usuario'
 
-const {
-    usuario
-} = useUsuario()
+import { useUsuarioStore } from './stores/usuario'
+import { storeToRefs } from 'pinia'
+
+
 
 const guard = (to, from, next) => {
 
-    const usuarioActual = usuario();
+    const usuarioStore = useUsuarioStore()
+
+    const { usuario } =  storeToRefs(usuarioStore)
+    const usuarioActual = usuario.value
     
     if(to.meta.requireAuth && !usuarioActual){
         router.push({name: 'Logout'})

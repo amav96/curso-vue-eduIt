@@ -81,6 +81,11 @@
 import { computed, toRefs } from 'vue';
 import { useRouter } from 'vue-router'
 
+import { useUsuarioStore } from '../stores/usuario'
+
+const usuarioStore = useUsuarioStore()
+const { displaySidebar, openSideBar } = usuarioStore
+
 const emit = defineEmits(["open-sidebar"])
 
 const router = useRouter();
@@ -91,15 +96,12 @@ const props = defineProps({
 
 const nameIcon = computed(() =>  displaySidebar.value ? 'fa fa-times' : 'fa fa-bars' )
 
-const { displaySidebar } = toRefs(props);
-
 const navegar = (nombreRuta) => {
     router.push({name: nombreRuta})
 }
 
 const manejarSidebar = () => {
-    console.log("sidbar")
-    emit("open-sidebar")
+    openSideBar()
 }
 
 </script>
