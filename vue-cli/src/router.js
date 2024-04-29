@@ -82,6 +82,12 @@ const router = createRouter({
         },
 
         {
+            path: '/geoposicionar',
+            component: () => import('./views/Geoposicionar.vue') ,
+            name: 'geoposicionar'
+        },
+
+        {
             path: '/usuario/:usuario_id',
             component: () => import('./views/Usuarios/SaveUsuario.vue') ,
             name: 'SaveUsuario'

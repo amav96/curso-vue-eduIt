@@ -99,6 +99,11 @@ const menu = ref([
             icon : 'fa fa-book'
         },
         {
+            title: 'Geoposicionar',
+            routeName: 'geoposicionar',
+            icon : 'fa fa-map-marker'
+        },
+        {
             title: 'Mi Perfil',
             routeName: 'Mi-perfil',
             icon: 'fa fa-user-circle'

@@ -82,11 +82,24 @@
 </template>
 
 <script setup>
-import { ref, toRefs } from 'vue';
+import { onBeforeMount, onBeforeUnmount, onMounted, ref, toRefs } from 'vue';
 const emit =  defineEmits(["eliminar", "actualizar", "actualizar-estado"])
 
 const props = defineProps({
     usuarios: Array
+})
+
+onBeforeMount(() => {
+    console.log("antes de montar")
+    console.log(JSON.parse(JSON.stringify(usuarios.value)))
+})
+
+onMounted(() => {
+    console.log("montado")
+})
+
+onBeforeUnmount(() => {
+    console.log("antes de irme")
 })
 
 const { usuarios } = toRefs(props)

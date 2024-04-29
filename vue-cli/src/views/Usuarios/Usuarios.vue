@@ -32,6 +32,7 @@
             </button>
         </div>
         <ListadoUsuarios
+       
         :usuarios="usuariosCalculados"
         @eliminar="eliminarUsuario"
         @actualizar="abrirActualizarUsuario"
