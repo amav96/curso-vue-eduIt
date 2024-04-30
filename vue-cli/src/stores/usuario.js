@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { USUARIO_LS } from '../utils/Key'
 
 export const useUsuarioStore = defineStore('usuario', {
     state: () => ({
@@ -14,6 +15,7 @@ export const useUsuarioStore = defineStore('usuario', {
         },
         setUsuario(data){
             this.usuario = data
+            localStorage.setItem(USUARIO_LS, JSON.stringify(this.usuario))
         }
     },
 })

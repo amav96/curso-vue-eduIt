@@ -11,18 +11,40 @@ import Login from './views/Autenticacion/Login.vue'
 
 import { useUsuarioStore } from './stores/usuario'
 import { storeToRefs } from 'pinia'
+import { USUARIO_LS } from './utils/Key'
+import { useUsuario } from './composables/Usuario'
 
+const { 
+    // setUsuario,
+    getUsuario
+} = useUsuario();
 
-
-const guard = (to, from, next) => {
+const guard = async (to, from, next) => {
 
     const usuarioStore = useUsuarioStore()
-
+    const { setUsuario } =  usuarioStore
     const { usuario } =  storeToRefs(usuarioStore)
     const usuarioActual = usuario.value
-    
+  
     if(to.meta.requireAuth && !usuarioActual){
-        router.push({name: 'Logout'})
+
+        let usuarioLs = localStorage.getItem(USUARIO_LS)
+        if(usuarioLs){
+            usuarioLs = JSON.parse(usuarioLs)
+
+            const response = await getUsuario({
+                email : usuarioLs.email,
+            })
+            const [usuarioServer] = response.data
+            setUsuario(usuarioServer)
+            next();   
+        } else{
+            router.push({name: 'Logout'})
+        }
+
+
+        
+        //
     } else {
         next();
     }
